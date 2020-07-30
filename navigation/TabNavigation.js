@@ -6,7 +6,9 @@ import Profile from "../screens/Tabs/Profile";
 import Search from "../screens/Tabs/Search";
 import Notifications from "../screens/Tabs/Notifications";
 import MessagesLink from "../components/MessagesLink";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
+import NavIcon from "../components/NavIcon";
+import { stackStyles } from "./config";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -17,22 +19,54 @@ const stackFactory = (initialRoute, name, customConfig) => (
     <Stack.Screen
       name={name}
       component={initialRoute}
-      options={{ ...customConfig }}
+      options={{ 
+        ...customConfig,
+        headerStyle: { ...stackStyles }
+       }}
     />
   </Stack.Navigator>
 );
 
 export default () => (
-  <Tab.Navigator>
-    <Tab.Screen name="Home">
+  <Tab.Navigator
+    tabBarOptions={{
+      showLabel: false
+    }}
+    tabStyle={{ 
+      backgroundColor: "#FAFAFA"
+     }}
+  >
+    <Tab.Screen 
+      name="Home"
+      options={
+        {
+          tabBarIcon: ({ focused }) => ( 
+          <NavIcon
+            focused={focused}  
+            name={Platform.os === "ios" ? "ios-home" : "md-home"} 
+          /> )
+        }
+      }
+      >
       {() =>
         stackFactory(Home, "Home", {
-          title: "Home",
-          headerRight: () => <MessagesLink />
+          headerRight: () => <MessagesLink />,
+          headerTitle: <NavIcon name="logo-instagram" size={36} />
         })
       }
     </Tab.Screen>
-    <Tab.Screen name="Search">
+    <Tab.Screen 
+      name="Search"
+      options={
+        {
+          tabBarIcon: ({ focused }) => ( 
+          <NavIcon
+           focused={focused} 
+           name={Platform.os === "ios" ? "ios-search" : "md-search"} 
+          /> )
+        }
+       }
+    >
       {() =>
         stackFactory(Search, "Search", {
           title: "Search",
@@ -46,20 +80,58 @@ export default () => (
         tabPress: (e) => {
           e.preventDefault();
           navigation.navigate("PhotoNavigation");
-        },
+        }
       })}
+      options={
+        {
+          tabBarIcon: ({ focused }) => (
+           <NavIcon
+             focused={focused} 
+             name={Platform.os === "ios" ? "ios-add" : "md-add"} 
+           /> )
+        }
+      }
     />
-    <Tab.Screen name="Notifications">
+    <Tab.Screen 
+      name="Notifications"
+      options={
+        {
+          tabBarIcon: ({ focused }) => (
+            <NavIcon
+              focused={focused} 
+              name={Platform.os === "ios" 
+                      ? focused
+                        ? "ios-heart" 
+                        : "md-heart"
+                      : focused
+                        ? "md-heart"
+                        : "md-heart-empty"
+                      } 
+            /> )
+        }
+      }
+    >
       {() =>
         stackFactory(Notifications, "Notifications", {
-          title: "Notifications",
+          title: "Notifications"
         })
       }
     </Tab.Screen>
-    <Tab.Screen name="Profile">
+    <Tab.Screen 
+      name="Profile"
+      options={
+        {
+          tabBarIcon: ({ focused }) => (
+            <NavIcon
+              focused={focused} 
+              name={Platform.os === "ios" ? "ios-person" : "md-person"} 
+            /> )
+        }
+      }
+    >
       {() =>
         stackFactory(Profile, "Profile", {
-          title: "Profile",
+          title: "Profile"
         })
       }
     </Tab.Screen>
