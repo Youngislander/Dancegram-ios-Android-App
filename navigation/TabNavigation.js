@@ -87,7 +87,10 @@ export default () => (
           tabBarIcon: ({ focused }) => (
            <NavIcon
              focused={focused} 
-             name={Platform.os === "ios" ? "ios-add" : "md-add"} 
+             name={Platform.os === "ios" 
+                 ? "ios-add-circle-outline" 
+                 : "md-add-circle-outline"
+            } 
            /> )
         }
       }
