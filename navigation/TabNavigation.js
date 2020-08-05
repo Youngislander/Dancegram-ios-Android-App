@@ -3,32 +3,59 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../screens/Tabs/Home";
 import Profile from "../screens/Tabs/Profile";
-import Search from "../screens/Tabs/Search";
+import Detail from "../screens/Detail";
+import Search from "../screens/Tabs/Search/SearchContainer";
 import Notifications from "../screens/Tabs/Notifications";
 import MessagesLink from "../components/MessagesLink";
 import { Platform, View } from "react-native";
 import NavIcon from "../components/NavIcon";
 import { stackStyles } from "./config";
+import styles from "../styles";
+import UserDetail from "../screens/UserDetail";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 
 const stackFactory = (initialRoute, name, customConfig) => (
-  <Stack.Navigator>
+  <Stack.Navigator
+   headerStyle = {
+     {...stackStyles}
+   }
+  >
     <Stack.Screen
       name={name}
       component={initialRoute}
+      options={ 
+        {...customConfig}
+       }
+    />
+    <Stack.Screen
+      name="Detail"
+      component={Detail}
       options={{ 
-        ...customConfig,
-        headerStyle: { ...stackStyles }
+        title: "Photo",
+        headerBackTitleVisible: false,
+        headerTintColor: styles.blackColor,
+        headerStyle:{...stackStyles}
        }}
+    />
+    <Stack.Screen
+      name="UserDetail"
+      component={UserDetail}
+      options={{
+        title: "User",
+        headerBackTitleVisible: false,
+        headerTintColor: styles.blackColor,
+        headerStyle:{...stackStyles}
+      }}
     />
   </Stack.Navigator>
 );
 
 export default () => (
   <Tab.Navigator
+    initialRouteName="Profile"
     tabBarOptions={{
       showLabel: false
     }}
@@ -68,9 +95,7 @@ export default () => (
        }
     >
       {() =>
-        stackFactory(Search, "Search", {
-          title: "Search",
-        })
+        stackFactory(Search, "Search")
       }
     </Tab.Screen>
     <Tab.Screen
@@ -90,7 +115,7 @@ export default () => (
              name={Platform.os === "ios" 
                  ? "ios-add-circle-outline" 
                  : "md-add-circle-outline"
-            } 
+            }
            /> )
         }
       }

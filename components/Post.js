@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { Image, Platform } from "react-native";
 import styled from "styled-components";
 import { Ionicons } from "@expo/vector-icons";
@@ -68,6 +69,7 @@ const Post = ({
     comments = [],
     isLiked: isLikedProp
 }) => {
+    const navigation = useNavigation();
     const [isLiked, setIsLiked] = useState(isLikedProp);
     const [likeCount, setLikeCount] = useState(likeCountProp);
     const toggleLikeMutation = useMutation(TOGGLE_LIKE, {
@@ -89,13 +91,21 @@ const Post = ({
     return (
         <Container>
             <Header>
-                <Touchable>
+                <Touchable
+                 onPress={() => 
+                   navigation.navigate("UserDetail", { username: user.username })
+                }
+                >
                     <Image 
                       style={{ height: 40, width: 40, borderRadius: 20 }}
                       source={{ uri: user.avatar }}  
                     />
                 </Touchable>
-                <Touchable>
+                <Touchable
+                   onPress={() => 
+                    navigation.navigate("UserDetail", { username: user.username })
+                 }
+                >
                     <HeaderUserContainer>
                         <Bold>{user.username}</Bold>
                         <Location>{location}</Location>
@@ -186,7 +196,7 @@ Post.propTypes = {
     ).isRequired,
     caption: PropTypes.string.isRequired,
     location: PropTypes.string,
-    createdAt: PropTypes.string.isRequired
+    createAt: PropTypes.string.isRequired
   };
 
   export default Post;
