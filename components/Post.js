@@ -72,7 +72,7 @@ const Post = ({
     const navigation = useNavigation();
     const [isLiked, setIsLiked] = useState(isLikedProp);
     const [likeCount, setLikeCount] = useState(likeCountProp);
-    const toggleLikeMutation = useMutation(TOGGLE_LIKE, {
+    const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
         variables: {
             postId: id
         }
@@ -196,7 +196,7 @@ Post.propTypes = {
     ).isRequired,
     caption: PropTypes.string.isRequired,
     location: PropTypes.string,
-    createAt: PropTypes.string.isRequired
+    createdAt: PropTypes.string.isRequired
   };
 
   export default Post;

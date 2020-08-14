@@ -1,13 +1,32 @@
 import React, { useState } from "react";
 import { Image, View, TouchableOpacity, Platform } from "react-native";
+import { AsyncStorage } from "react-native"
 import styled from "styled-components";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import PropTypes from "prop-types";
 import styles from "../styles";
 import { platform } from "@unimodules/core";
 import constants from "../constants";
 import SquarePhoto from "./SquarePhoto";
 import Post from "./Post";
+
+
+const LButton = styled.TouchableOpacity`
+  width: 60px;
+  height: 30px;
+  margin-top: 90px;
+  position: absolute;
+  right: 1px;
+  top: 15px;
+  background-color: ${styles.darkGreyColor};
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+`
+const LText = styled.Text`
+  color: white;
+`;
 
 const ProfileHeader = styled.View`
   padding: 20px;
@@ -48,7 +67,6 @@ const Button = styled.View`
   align-items: center;
 `;
 
-
 const UserProfile = ({
     avatar,
     postsCount,
@@ -58,6 +76,11 @@ const UserProfile = ({
     fullName,
     posts
 }) => {
+const navigation = useNavigation();    
+const logout = async() => {
+    await AsyncStorage.clear();
+    navigation.navigate("Login");
+    }   
  const [isGrid, setIsGrid] = useState(true);
  const toggleGrid = () => setIsGrid(i => !i);
  return (
@@ -68,6 +91,9 @@ const UserProfile = ({
               source={{ uri: avatar }}
             />
             <HeaderColumn>
+                <LButton onPress={logout}>
+                    <LText>Log out</LText>
+                </LButton>
                 <ProfileStats>
                     <Stat>
                         <Bold>{postsCount}</Bold>
@@ -159,7 +185,7 @@ UserProfile.propTypes = {
         ).isRequired,
         caption: PropTypes.string.isRequired,
         location: PropTypes.string,
-        createAt: PropTypes.string.isRequired
+        createdAt: PropTypes.string.isRequired
       })
     )
 };

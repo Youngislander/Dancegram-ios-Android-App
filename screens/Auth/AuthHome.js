@@ -10,6 +10,8 @@ const View = styled.View`
   flex: 1;
 `;
 
+const AuthButton = styled.TouchableOpacity``;
+
 const Image = styled.Image`
   width: ${constants.width / 2.5}
 `;
@@ -30,11 +32,13 @@ export default ({ navigation }) => (
        <Image resizeMode={"contain"} source={require("../../assets/logo.png")} />
        <AuthButton 
          text={"Create New Account"}
-         onPress={() => navigation.navigate("SignUp")}
-       />
+         onPress={() => navigation.navigate("Signup")}
+       >
+         <Text>Sign up</Text>
+        </AuthButton>
        <Touchable onPress={() => navigation.navigate("Login")}>
         <LoginLink>
-            <LoginLinkText>Log in</LoginLinkText>
+            <LoginLinkText>Login</LoginLinkText>
         </LoginLink>
        </Touchable>
     </View>

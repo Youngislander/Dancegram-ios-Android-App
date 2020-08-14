@@ -24,7 +24,7 @@ export const POST_FRAGMENT = gql`
               username
           }
       }
-      createAt
+      createdAt
   }
 `;
 

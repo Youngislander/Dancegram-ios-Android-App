@@ -7,6 +7,7 @@ import constants from "../constants";
 
 const SquarePhoto = ({ files=[], id}) => {
     const navigation = useNavigation();
+    console.log(files)
     return ( <TouchableOpacity onPress={() => navigation.navigate("Detail", { id })}>
         <Image
           source={{ uri: files[0].url }}

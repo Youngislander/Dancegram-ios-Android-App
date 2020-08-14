@@ -12,13 +12,17 @@ export const CREATE_ACCOUNT = gql`
       $email: String!
       $firstName: String
       $lastName: String
+      $bio: String
+      $loginSecret: String
   ) {
       createAccount(
           username: $username
           email: $email
           firstName: $firstName
           lastName: $lastName
-      )
+          bio: $bio
+          loginSecret: $loginSecret
+       )
   }
 `;
 

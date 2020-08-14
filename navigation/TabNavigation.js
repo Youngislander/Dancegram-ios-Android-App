@@ -55,7 +55,6 @@ const stackFactory = (initialRoute, name, customConfig) => (
 
 export default () => (
   <Tab.Navigator
-    initialRouteName="Profile"
     tabBarOptions={{
       showLabel: false
     }}

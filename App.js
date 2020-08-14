@@ -18,7 +18,7 @@ import { AuthProvider } from "./AuthContext";
 export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [client, setClient] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const preLoad = async() => {
     try {
       await Font.loadAsync({
