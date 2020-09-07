@@ -15,16 +15,26 @@ const GET_USER = gql`
   ${USER_FRAGMENT}
 `;
 
+const ME = gql`
+  {
+     me {
+        ...UserParts
+     }
+  }
+ ${USER_FRAGMENT}
+`
+
 export default ({route}) => {
     const { loading, data } = useQuery(GET_USER, {
         variables: { username: route.params?.username }
     });
+    const { loading:meLoading, data:data2 } = useQuery(ME);
     return (
         <ScrollView>
-            {loading ? (
+            { loading || meLoading ? (
                 <Loader />
             ) : (
-              data && data.seeUser && <UserProfile {...data.seeUser} />
+              data && data2 && data.seeUser && data2.me&& <UserProfile {...data.seeUser} myName={data2.me.username} />
             )}
         </ScrollView>
     );

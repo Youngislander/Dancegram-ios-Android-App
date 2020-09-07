@@ -12,6 +12,8 @@ import NavIcon from "../components/NavIcon";
 import { stackStyles } from "./config";
 import styles from "../styles";
 import UserDetail from "../screens/UserDetail";
+import UserProfile from "../components/UserProfile"
+import EditPost from '../components/EditPost';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -45,6 +47,26 @@ const stackFactory = (initialRoute, name, customConfig) => (
       component={UserDetail}
       options={{
         title: "User",
+        headerBackTitleVisible: false,
+        headerTintColor: styles.blackColor,
+        headerStyle:{...stackStyles}
+      }}
+    />
+     <Stack.Screen
+      name="UserProfile"
+      component={UserProfile}
+      options={{
+        title: "User",
+        headerBackTitleVisible: false,
+        headerTintColor: styles.blackColor,
+        headerStyle:{...stackStyles}
+      }}
+    />
+      <Stack.Screen
+      name="EditPost"
+      component={EditPost}
+      options={{
+        title: "EditPost",
         headerBackTitleVisible: false,
         headerTintColor: styles.blackColor,
         headerStyle:{...stackStyles}

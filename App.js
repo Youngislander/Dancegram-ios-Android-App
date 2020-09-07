@@ -14,12 +14,26 @@ import apolloClientOptions from "./apollo";
 import styles from "./styles";
 import NavController from "./components/NavController";
 import { AuthProvider } from "./AuthContext";
+import * as Permissions from "expo-permissions";
+import { Notifications } from "expo";
+
+
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [client, setClient] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [notificationStatus, setStatus] = useState(false);
+  
   const preLoad = async() => {
+    //알림 설정 permission
+    const ask = async () => {
+      const { status } = await Permissions.askAsync(permissions.NOTIFICATIONS);
+      setStatus(status);
+      let token = await Notifications.getExpoPushTokenAsync();
+      console.log(token);
+      Notifications.setBadgeNumberAsync(0);
+    }
     try {
       await Font.loadAsync({
          ...Ionicons.Font

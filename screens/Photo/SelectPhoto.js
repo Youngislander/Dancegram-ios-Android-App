@@ -107,7 +107,15 @@ export default () => {
                  style={{
                    width: constants.width/3,
                    height: constants.height/6,
-                   opacity: photo.id === selected.id ? 0.5 : 1
+                   opacity: () => {
+                        for(i = 0; i < allphotos.length-1; i++){
+                        if(photo.id === selectArray[i].id){
+                          return 0.5
+                        } else{
+                          return 1
+                        }
+                      }
+                    }
                  }}
                />
               </TouchableOpacity>

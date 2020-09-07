@@ -46,3 +46,26 @@ export const USER_FRAGMENT = gql`
   }
   ${POST_FRAGMENT}
 `;
+
+export const ROOM_FRAGMENT = gql`
+   fragment RoomParts on Room {
+    id
+    participants {
+      id
+      username
+    }
+    messages {
+      id
+      text
+      from {
+        id
+        username
+       }
+      to {
+        id
+        username
+      }
+    }
+    createdAt
+    }
+`

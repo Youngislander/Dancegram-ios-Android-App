@@ -68,13 +68,15 @@ const Button = styled.View`
 `;
 
 const UserProfile = ({
+    username,
     avatar,
     postsCount,
     followersCount,
     followingCount,
     bio,
     fullName,
-    posts
+    posts,
+    myName=username
 }) => {
 const navigation = useNavigation();    
 const logout = async() => {
@@ -91,9 +93,13 @@ const logout = async() => {
               source={{ uri: avatar }}
             />
             <HeaderColumn>
-                <LButton onPress={logout}>
+                { myName === username &&
+                  (
+                  <LButton onPress={logout}>
                     <LText>Log out</LText>
-                </LButton>
+                  </LButton>
+                  )
+                }
                 <ProfileStats>
                     <Stat>
                         <Bold>{postsCount}</Bold>

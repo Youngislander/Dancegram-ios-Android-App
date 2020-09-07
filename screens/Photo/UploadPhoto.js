@@ -72,28 +72,29 @@ export default ({navigation, route}) => {
    photo.map( photo => {
       const name = photo.filename;
       const [, type] = name.split(".");
-      formData.append("file", {
+      formData.append("files", {
         name,
         type: type.toLowerCase(),
         uri: photo.uri
       });
     })
    try {
-     console.log(formData);
      setIsLoading(true);
-     const {
-       data: { location }
-     } = await axios.post("http://192.168.219.104:4000/api/upload", formData, {
+     const 
+       files
+   = await axios.post("http://172.30.1.13:4000/api/upload", formData, {
      headers: {
        "content-type" : "multipart/form-data"
      }
    });
-   console.log(location);
+   console.log(files.data.files)
+   const locationArray = files.data.files.map(location => location.location)
+   console.log(locationArray);
    const {
      data: { upload }
    } = await uploadMutation({
      variables: {
-       files: [location],
+       files: locationArray,
        caption: captionInput.value,
        location: locationInput.value
      }
@@ -112,7 +113,7 @@ export default ({navigation, route}) => {
      <View>
        <Container>
          <Image 
-           source={{ uri: photo.uri }}
+           source={{ uri: photo[photo.length-1].uri }}
            style={{ height: 80, width: 80, marginRight: 30 }}
          />
          <Form>
